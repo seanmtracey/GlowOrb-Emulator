@@ -4,8 +4,22 @@
 
 window.onload = function(){
 
-    setTimeout(function(){
-        document.body.dataset.ready = "true";
-    }, 100);
+
 
 };
+
+(function(){
+
+    'use strict';
+
+    const settingsButton = document.querySelector('#settingsBtn');
+
+    settingsButton.addEventListener('click', function(){
+        document.body.dataset.settingsshowing = "true";
+    }, false);
+
+    setTimeout(function(){
+        document.body.dataset.ready = "true";
+    }, 50);
+
+}());

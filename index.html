@@ -6,21 +6,25 @@
 		<link rel='stylesheet' href='styles.css' />
 		<link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
 	</head>
-	<body data-ready="false">
-
-		<div id="gloworb">
-			<div id="orb">
-				<div id="crescent"></div>
+	<body data-ready="false" data-settingsshowing="false">
+		<div id="display">
+			<div id="gloworb">
+				<div id="orb" data-set="false">
+					<div id="crescent"></div>
+				</div>
 			</div>
+
+			<div id="status">
+				<h1>#------</h1>
+				<span>Color not yet set...</span>
+			</div>
+
+			<div id="settingsBtn"></div>
+		
 		</div>
 
-		<div id="status">
-			<h1>#FF00FF</h1>
-			<span>Color set at 00:00:00</span>
-		</div>
-
-		<div id="settings">
-
+		<div id="settingsPanel" data-active="false">
+			
 		</div>
 
 		<script>
