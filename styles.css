@@ -1,0 +1,117 @@
+body[data-ready="false"]{
+    transform: translateX(100%);
+}
+
+html, body{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    align-items: center;
+    font-family: 'Unica One', sans-serif;
+}
+
+#gloworb{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 77vh;
+    background-image: url('assets/box.png');
+    background-size: 100%;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-top: 1.5em;
+    -webkit-app-region: drag;
+    cursor: move;
+}
+
+#gloworb #orb{
+    width: 67vw;
+    height: 67vw;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    background-color: red;
+    border-radius: 100%;
+    margin-top: 2vh;
+    box-shadow: 0 0 51px red;
+}
+
+#gloworb #orb #crescent{
+    background-image: url('assets/crescent.png');
+    width: 100%;
+    height: 100%;
+    background-size: 65%;
+    background-position: 100% 50%;
+    overflow: hidden;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+}
+
+#status{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin-top: 0.75em;
+    width: 50%;
+    text-align: center;
+    border: 1px solid #d0d0d0;
+    padding: 0.6em 1em;
+}
+
+#status h1{
+    padding: 0;
+    margin: 0;
+    line-height: 0.9em;
+}
+
+#status span{
+    font-size: 0.75em;
+    color: rgba(0,0,0,0.5);
+    font-family: sans-serif;
+}
+
+#settings{
+    position: fixed;
+    bottom: 1px;
+    right: 1px;
+    width: 1.5em;
+    height: 1.5em;
+    background: white;
+    border-radius: 100%;
+    background-image: url('assets/settings.png');
+    background-size: 69%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+#settings:hover{
+    animation: spinAnimation 3s infinite linear;
+	-moz-animation: spinAnimation 3s infinite linear;
+	-webkit-animation: spinAnimation 3s infinite linear;
+	-o-animation: spinAnimation 3s infinite linear;
+}
+
+@keyframes spinAnimation{
+	0% {transform: rotateZ(0deg);}
+	100% {transform: rotateZ(360deg);}
+}
+
+@-moz-keyframes spinAnimation{
+	0% {-moz-transform: rotateZ(0deg);}
+	100% {-moz-transform: rotateZ(360deg);}
+}
+	
+@-webkit-keyframes spinAnimation{
+	0% {-webkit-transform: rotateZ(0deg);}
+	100% {-webkit-transform: rotateZ(360deg);}
+}
+	
+@-o-keyframes spinAnimation{
+	0% {-o-transform: rotateZ(0deg);}
+	100% {-o-transform: rotateZ(360deg);}
+}
