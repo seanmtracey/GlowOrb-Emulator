@@ -20,7 +20,6 @@ body[data-settingsshowing="true"] #settingsPanel{
 
 body[data-settingsshowing="true"] #display{
     transform: scale(0.85);
-    /* filter: blur(0.5em); */
 }
 
 body[data-settingsshowing="true"] #gloworb{
@@ -126,18 +125,20 @@ body[data-settingsshowing="true"] #gloworb{
 #settingsPanel{
     position: fixed;
     width: 95%;
-    height: 90%;
+    height: 85%;
     border-radius: 20px;
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     border: 1px solid #d0d0d0;
     box-sizing: border-box;
-    margin-top: 10vh;
+    margin-top: 12vh;
     transition: ease-in-out 0.3s;
+    top: 0;
+
 }
 
 #settingsPanel[data-active="false"]{
-    transform: translateY(100%);
+    transform: translateY(100vh);
 }
 
 @keyframes spinAnimation{

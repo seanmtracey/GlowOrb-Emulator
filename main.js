@@ -1,8 +1,49 @@
 
 const Electron = require('electron');
+const mqtt = require('mqtt');
+const validHexColor = require('valid-hex-color');
+
 const app = Electron.app;
 const BrowserWindow = Electron.BrowserWindow;
-const ipcRenderer = Electron.ipcRenderer;
+const ipcMain = Electron.ipcMain;
+
+let mqttClient = mqtt.connect('mqtt://iot.eclipse.org', {
+	port : 1883
+});
+ 
+mqttClient.on('connect', function () {
+
+	console.log('Connected to MQTT Broker');
+
+	mqttClient.subscribe('/gloworbemulator/sean', function (err) {
+		
+		if (err) {
+			console.log('MQTT Subscription Error:', err);
+		} else {
+			console.log('Successful subscription to topic');
+
+			mqttClient.on('message', function (topic, message) {
+				// message is Buffer
+				console.log(topic, message.toString());
+
+				if( validHexColor.check(message.toString() ) ){
+
+					if(mainWindow){
+						mainWindow.webContents.send('message' , {
+							data: message.toString(),
+							topic : topic
+						});
+					}
+
+				}
+
+			});
+
+		}
+
+	})
+
+});
 
 let mainWindow
 
