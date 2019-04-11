@@ -6,7 +6,7 @@
 		<link rel='stylesheet' href='styles.css' />
 		<link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
 	</head>
-	<body data-ready="false" data-settingsshowing="false">
+	<body data-ready="false" data-settingsshowing="false" data-connecting="false">
 		<div id="display">
 			<div id="gloworb">
 				<div id="orb" data-set="false">
@@ -39,8 +39,11 @@
 			</form>
 		</div>
 
+		<div id="connectionStatus">
+			<h1>Connecting...</h1>    
+		</div>
+
 		<script>
-		// You can also require other files to run in this process
 		require('./renderer.js');
 		</script>
 	</body>

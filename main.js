@@ -36,6 +36,10 @@ ipcMain.on('brokerSettings', (evt, message) => {
 		brokerDisconnect
 			.then(function(){
 
+				mainWindow.webContents.send('connectionChange' , {
+					status: "connecting"
+				});
+
 				mqttClient = mqtt.connect(data.broker, {
 					port : data.port
 				});
@@ -43,6 +47,10 @@ ipcMain.on('brokerSettings', (evt, message) => {
 				mqttClient.on('connect', function () {
 		
 					console.log('Connected to MQTT Broker');
+
+					mainWindow.webContents.send('connectionChange' , {
+						status: "connected"
+					});
 				
 					mqttClient.subscribe(data.topic, function (err) {
 						
@@ -103,7 +111,7 @@ function createWindow () {
 
 	mainWindow.loadFile('index.html');
 
-	// mainWindow.toggleDevTools();
+	mainWindow.toggleDevTools();
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();

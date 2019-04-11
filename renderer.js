@@ -18,6 +18,8 @@
 
     const status = document.querySelector('#status');
 
+    const connectionStatus = document.querySelector('#connectionStatus');
+
     function zeroPad(number){
         if(number < 10){
             return `0${number}`;
@@ -96,7 +98,7 @@
 
     }, false);
 
-    ipcRenderer.on('message' , function(event , message){ 
+    ipcRenderer.on('message' , function(event, message){ 
         console.log(message);
         
         if(message.data){
@@ -104,6 +106,33 @@
             setStatus(message.data);
         }
         
+    });
+
+    ipcRenderer.on('connectionChange', function(event, message){
+
+        if(message){
+
+            if(message.status === "connecting"){
+                document.body.dataset.connecting = "true";
+                connectionStatus.querySelector('h1').textContent = "Connecting...";
+            }
+
+            if(message.status === "connected"){
+                connectionStatus.querySelector('h1').textContent = "Connected!";
+                
+                setTimeout(function(){
+                    document.body.dataset.connecting = "false";
+                }, 1500);
+
+            }
+
+            /*if(message.status === "error"){
+                document.body.dataset.connecting = "true";
+
+            }*/
+
+        }
+
     });
 
     setTimeout(function(){

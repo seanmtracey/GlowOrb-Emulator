@@ -26,6 +26,15 @@ body[data-settingsshowing="true"] #gloworb{
     -webkit-app-region: no-drag;
 }
 
+body[data-connecting="true"] #display{
+    filter: blur(5px);
+    opacity: 0.5;
+}
+
+body[data-connecting="false"] #connectionStatus{
+    display: none;
+}
+
 #display{
     width: 100%;
     height: 100%;
@@ -172,6 +181,24 @@ body[data-settingsshowing="true"] #gloworb{
     color: white;
     cursor: pointer;
     text-shadow: 0 1px 1px #6f6f6f;
+}
+
+#connectionStatus{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+#connectionStatus h1{
+    background: rgba(0, 0, 0, 0.63);
+    border-radius: 10px;
+    padding: 0.5em 1em;
 }
 
 @keyframes spinAnimation{
