@@ -134,11 +134,44 @@ body[data-settingsshowing="true"] #gloworb{
     margin-top: 12vh;
     transition: ease-in-out 0.3s;
     top: 0;
-
+    font-family: sans-serif;
+    box-sizing: border-box;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
 }
 
 #settingsPanel[data-active="false"]{
     transform: translateY(100vh);
+}
+
+#settingsPanel form{
+    display: flex;
+    flex-direction: column;
+}
+
+#settingsPanel form input[type="text"]{
+    margin-bottom: 1em;
+    font-size: 1em;
+    padding: 0.5em;
+}
+
+#settingsPanel form input[type="submit"]{
+    width: 50%;
+    display: block;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    padding: 1em;
+    border-radius: 5px;
+    background: white;
+    font-size: 0.8em;
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    background-color: #72b781;
+    color: white;
+    cursor: pointer;
+    text-shadow: 0 1px 1px #6f6f6f;
 }
 
 @keyframes spinAnimation{

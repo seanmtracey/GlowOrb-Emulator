@@ -7,41 +7,80 @@ const app = Electron.app;
 const BrowserWindow = Electron.BrowserWindow;
 const ipcMain = Electron.ipcMain;
 
-let mqttClient = mqtt.connect('mqtt://iot.eclipse.org', {
-	port : 1883
-});
- 
-mqttClient.on('connect', function () {
+let mqttClient;
 
-	console.log('Connected to MQTT Broker');
+ipcMain.on('brokerSettings', (evt, message) => {
 
-	mqttClient.subscribe('/gloworbemulator/sean', function (err) {
+	console.log(message);
+	const data = message;
+
+	if(data.broker && data.port && data.topic){
+
+		let brokerDisconnect;
 		
-		if (err) {
-			console.log('MQTT Subscription Error:', err);
+		if(mqttClient){
+
+			brokerDisconnect = new Promise( (resolve, reject) => {
+				
+				mqttClient.end(true, function(){
+					console.log('Disconnected from broker');
+					resolve();
+				});
+
+			} );
+
 		} else {
-			console.log('Successful subscription to topic');
-
-			mqttClient.on('message', function (topic, message) {
-				// message is Buffer
-				console.log(topic, message.toString());
-
-				if( validHexColor.check(message.toString() ) ){
-
-					if(mainWindow){
-						mainWindow.webContents.send('message' , {
-							data: message.toString(),
-							topic : topic
-						});
-					}
-
-				}
-
-			});
-
+			brokerDisconnect = Promise.resolve();
 		}
 
-	})
+		brokerDisconnect
+			.then(function(){
+
+				mqttClient = mqtt.connect(data.broker, {
+					port : data.port
+				});
+		
+				mqttClient.on('connect', function () {
+		
+					console.log('Connected to MQTT Broker');
+				
+					mqttClient.subscribe(data.topic, function (err) {
+						
+						if (err) {
+							console.log('MQTT Subscription Error:', err);
+						} else {
+							console.log('Successful subscription to topic');
+				
+							mqttClient.on('message', function (topic, message) {
+								// message is Buffer
+								console.log(topic, message.toString());
+				
+								if( validHexColor.check(message.toString() ) ){
+				
+									if(mainWindow){
+										mainWindow.webContents.send('message' , {
+											data: message.toString(),
+											topic : topic
+										});
+									}
+				
+								}
+				
+							});
+				
+						}
+				
+					})
+				
+				});
+
+			})
+			.catch(err => {
+				console.log(err);
+			})
+		;
+
+	}
 
 });
 
@@ -64,7 +103,7 @@ function createWindow () {
 
 	mainWindow.loadFile('index.html');
 
-	mainWindow.toggleDevTools();
+	// mainWindow.toggleDevTools();
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();

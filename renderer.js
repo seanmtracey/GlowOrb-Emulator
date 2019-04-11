@@ -10,6 +10,8 @@
     const ipcRenderer = Electron.ipcRenderer; 
 
     const settingsButton = document.querySelector('#settingsBtn');
+    const settingsPanel = document.querySelector('#settingsPanel');
+    const settingsForm = settingsPanel.querySelector('form');
     
     const GlowOrb = document.querySelector('#gloworb');
     const Orb = GlowOrb.querySelector('#orb');
@@ -35,11 +37,63 @@
         const timeString = `${ zeroPad( time.getHours() )}:${ zeroPad( time.getMinutes() )}:${ zeroPad( time.getSeconds( ))}`;
 
         status.querySelector('h1').textContent = color;
-        status.querySelector('span').textContent = `Color set at ${timeString}`
+        status.querySelector('span').textContent = `Color set at ${timeString}`;
+
     }
+
+    const brokerSettings = (function(){
+
+        function getStoredSettingsForBroker(){
+            
+            const data = localStorage.getItem('brokerSettings');
+
+            if(data){
+                return JSON.parse(data);
+            } else {
+                return {};
+            }
+
+        }
+
+        function saveSettingsForBroker(data){
+
+            localStorage.setItem('brokerSettings', JSON.stringify(data) );
+
+        }
+
+        function sendBrokerSettingsToMainProcess(){
+            
+            const data = getStoredSettingsForBroker();
+            ipcRenderer.send('brokerSettings', data);
+
+        }
+
+        return {
+            get : getStoredSettingsForBroker,
+            set : saveSettingsForBroker,
+            send : sendBrokerSettingsToMainProcess
+        };
+
+    })();
 
     settingsButton.addEventListener('click', function(){
         document.body.dataset.settingsshowing = "true";
+    }, false);
+
+    settingsForm.addEventListener('submit', function(e){
+        
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        
+        brokerSettings.set({
+            broker : this[0].value,
+            port : this[1].value || 1883,
+            topic : this[2].value
+        });
+
+        brokerSettings.send();
+        document.body.dataset.settingsshowing = "false";
+
     }, false);
 
     ipcRenderer.on('message' , function(event , message){ 
@@ -55,5 +109,18 @@
     setTimeout(function(){
         document.body.dataset.ready = "true";
     }, 50);
+
+    const storedData = brokerSettings.get();
+
+    if(storedData.broker && storedData.port && storedData.topic){
+        brokerSettings.send();
+    } else {
+        document.body.dataset.settingsshowing = "true";
+    }
+
+    settingsForm[0].value = storedData.broker || "";
+    settingsForm[1].value = storedData.port || "";
+    settingsForm[2].value = storedData.topic || "";
+
 
 }());

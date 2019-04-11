@@ -24,12 +24,24 @@
 		</div>
 
 		<div id="settingsPanel" data-active="false">
-			
+			<form>
+				<label>MQTT Broker</label>
+				<input type="text" name="broker" placeholder="mqtt://..." />
+
+				<label>MQTT Port</label>
+				<input type="text" name="port" placeholder="1883" />
+
+				<label>MQTT Topic</label>
+				<input type="text" name="topic" placeholder="/GlowOrbEmulator/<UNIQUE TOPIC>" />
+
+				<input type="submit" value="Save Settings" />
+
+			</form>
 		</div>
 
 		<script>
 		// You can also require other files to run in this process
-		require('./renderer.js')
+		require('./renderer.js');
 		</script>
 	</body>
 </html>
