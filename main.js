@@ -42,7 +42,10 @@ ipcMain.on('brokerSettings', (evt, message) => {
 
 				mqttClient = mqtt.connect(data.broker, {
 					port : data.port,
-					connectTimeout : 15 * 1000
+					connectTimeout : 15 * 1000,
+					username : data.username,
+					password : data.password,
+					clientId : data.clientId
 				});
 
 				mqttClient.on('connect', function () {
@@ -153,7 +156,7 @@ function createWindow () {
 
 	mainWindow.loadFile('index.html');
 
-	mainWindow.toggleDevTools();
+	// mainWindow.toggleDevTools();
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();

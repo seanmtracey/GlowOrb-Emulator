@@ -1,10 +1,11 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "gloworb-emulator",
+  "version": "0.0.1",
+  "description": "Like a GlowOrb, but y'know, now...",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build-mac" : "iconutil -c icns \"app.iconset\" && electron-packager . \"GlowOrb Emulator\" --overwrite --platform=darwin --arch=x64 --icon=app.icns --prune=true --out=release-builds && rm app.icns"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [

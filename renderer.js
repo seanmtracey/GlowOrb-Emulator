@@ -90,7 +90,10 @@
         brokerSettings.set({
             broker : this[0].value,
             port : this[1].value || 1883,
-            topic : this[2].value
+            topic : this[2].value,
+            username : this[3].value,
+            password : this[4].value,
+            clientId : this[5].value
         });
 
         brokerSettings.send();
@@ -150,6 +153,9 @@
     settingsForm[0].value = storedData.broker || "";
     settingsForm[1].value = storedData.port || "";
     settingsForm[2].value = storedData.topic || "";
+    settingsForm[3].value = storedData.username || "";
+    settingsForm[4].value = storedData.password || "";
+    settingsForm[5].value = storedData.clientId || "";
 
 
 }());

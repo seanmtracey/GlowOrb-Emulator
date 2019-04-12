@@ -153,6 +153,7 @@ body[data-connecting="false"] #connectionStatus{
     display: flex;
     flex-direction: column;
     z-index: 2;
+    overflow: scroll;
 }
 
 #settingsPanel[data-active="false"]{
@@ -186,6 +187,8 @@ body[data-connecting="false"] #connectionStatus{
     color: white;
     cursor: pointer;
     text-shadow: 0 1px 1px #6f6f6f;
+    min-height: 3em;
+    margin-bottom: 1em;
 }
 
 #connectionStatus{
