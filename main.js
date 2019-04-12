@@ -17,12 +17,12 @@ ipcMain.on('brokerSettings', (evt, message) => {
 	if(data.broker && data.port && data.topic){
 
 		let brokerDisconnect;
-		
+
 		if(mqttClient){
 
 			brokerDisconnect = new Promise( (resolve, reject) => {
-				
-				mqttClient.end(true, function(){
+
+				mqttClient.end(false, function(){
 					console.log('Disconnected from broker');
 					resolve();
 				});
@@ -41,45 +41,87 @@ ipcMain.on('brokerSettings', (evt, message) => {
 				});
 
 				mqttClient = mqtt.connect(data.broker, {
-					port : data.port
+					port : data.port,
+					connectTimeout : 15 * 1000
 				});
-		
+
 				mqttClient.on('connect', function () {
-		
+
 					console.log('Connected to MQTT Broker');
 
 					mainWindow.webContents.send('connectionChange' , {
 						status: "connected"
 					});
-				
+
 					mqttClient.subscribe(data.topic, function (err) {
-						
+
 						if (err) {
 							console.log('MQTT Subscription Error:', err);
 						} else {
 							console.log('Successful subscription to topic');
-				
+
 							mqttClient.on('message', function (topic, message) {
-								// message is Buffer
+
 								console.log(topic, message.toString());
-				
+
 								if( validHexColor.check(message.toString() ) ){
-				
+
 									if(mainWindow){
 										mainWindow.webContents.send('message' , {
 											data: message.toString(),
 											topic : topic
 										});
 									}
-				
+
 								}
-				
+
 							});
-				
+
 						}
-				
+
 					})
-				
+
+				});
+
+				mqttClient.on('error', function (err) {
+
+					console.log('error:', err);
+
+					mainWindow.webContents.send('connectionChange' , {
+						status: "error",
+						details : err
+					});
+
+				});
+
+				mqttClient.on('reconnect', function (err) {
+
+					console.log('reconnect:', err);
+
+					mainWindow.webContents.send('connectionChange' , {
+						status: "reconnecting",
+					});
+
+				});
+
+				mqttClient.on('offline', function (err) {
+
+					console.log('offline:', err);
+
+					mainWindow.webContents.send('connectionChange' , {
+						status: "offline"
+					});
+
+				});
+
+				mqttClient.on('close', function (err) {
+
+					console.log('close:', err);
+
+					mainWindow.webContents.send('connectionChange' , {
+						status: "closed"
+					});
+
 				});
 
 			})

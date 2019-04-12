@@ -26,6 +26,10 @@ body[data-settingsshowing="true"] #gloworb{
     -webkit-app-region: no-drag;
 }
 
+body[data-settingsshowing="true"] #settingsBtn{
+    display: none;
+}
+
 body[data-connecting="true"] #display{
     filter: blur(5px);
     opacity: 0.5;
@@ -66,7 +70,7 @@ body[data-connecting="false"] #connectionStatus{
     background-color: #b7b7b7;
     border-radius: 100%;
     margin-top: 2vh;
-    /* box-shadow: 0 0 51px white; */
+    /* box-shadow: 0 0 50px white; */
 }
 
 #gloworb #orb #crescent{
@@ -148,6 +152,7 @@ body[data-connecting="false"] #connectionStatus{
     padding: 1em;
     display: flex;
     flex-direction: column;
+    z-index: 2;
 }
 
 #settingsPanel[data-active="false"]{
