@@ -143,14 +143,15 @@ function createWindow () {
 
 	mainWindow = new BrowserWindow({
 		width: 350,
-		height: 480,
+		height: 430,
 		webPreferences: {
 			nodeIntegration: true
 		},
 		transparent: true,
 		frame: false,
 		resizable: false,
-		show: false
+		show: false,
+		hasShadow : false
 	});
 
 
