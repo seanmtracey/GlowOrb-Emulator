@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Unica One';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Unica One'), local('UnicaOne-Regular'), url('UnicaOne-Regular.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 body[data-ready="false"]{
     transform: translateX(100%);
 }
@@ -138,18 +146,16 @@ body[data-connecting="false"] #connectionStatus{
 #settingsPanel{
     position: fixed;
     width: 95%;
-    height: 85%;
+    height: 95vh;
     border-radius: 10px;
-    background: white;
+    background: #f5f5f5;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     border: 1px solid #d0d0d0;
     box-sizing: border-box;
-    margin-top: 12vh;
     transition: ease-in-out 0.3s;
     top: 0;
     font-family: sans-serif;
     box-sizing: border-box;
-    padding: 1em;
     display: flex;
     flex-direction: column;
     z-index: 2;
@@ -157,38 +163,56 @@ body[data-connecting="false"] #connectionStatus{
 }
 
 #settingsPanel[data-active="false"]{
-    transform: translateY(100vh);
+    transform: translateY(110vh);
 }
 
 #settingsPanel form{
     display: flex;
     flex-direction: column;
+    overflow: scroll;
+    padding: 1em 1em 3em;
+}
+
+#settingsPanel form label{
+    font-weight: 800;
+    margin-bottom: 0.5em;
+    color: #616161;
 }
 
 #settingsPanel form input[type="text"]{
     margin-bottom: 1em;
-    font-size: 1em;
-    padding: 0.5em;
+    font-size: 0.8em;
+    padding: 0.8em 0.5em;
+    border-radius: 3px;
+    border: 1px solid #cacaca;
+    font-weight: 600;
 }
 
 #settingsPanel form input[type="submit"]{
-    width: 50%;
     display: block;
     align-self: center;
     text-align: center;
     align-content: center;
     justify-content: center;
     padding: 1em;
-    border-radius: 5px;
     background: white;
     font-size: 0.8em;
-    border: 1px solid rgba(0, 0, 0, 0.27);
-    background-color: #72b781;
+    background-color: #40884f;
     color: white;
     cursor: pointer;
     text-shadow: 0 1px 1px #6f6f6f;
-    min-height: 3em;
-    margin-bottom: 1em;
+    min-height: 3.5em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 0;
+    border-radius: 0;
+    border-color: #717171;
+    border-width: 1px 0 0 0;
+}
+
+#settingsPanel form input[type="submit"]:hover{
+    background-color: #72b781;
 }
 
 #connectionStatus{
