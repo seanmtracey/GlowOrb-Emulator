@@ -22,7 +22,7 @@ ipcMain.on('brokerSettings', (evt, message) => {
 
 			brokerDisconnect = new Promise( (resolve, reject) => {
 
-				mqttClient.end(false, function(){
+				mqttClient.end(true, function(){
 					console.log('Disconnected from broker');
 					resolve();
 				});
@@ -178,7 +178,6 @@ app.on('window-all-closed', function () {
 });
 
 app.on('activate', function () {
-
 
 	if (mainWindow === null) {
 		createWindow();
