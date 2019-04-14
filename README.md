@@ -55,9 +55,9 @@ Your Node-RED instance should connect to the Eclipse IoT MQTT Broker and will be
 
 Head back to your emulator and open up your settings panel by clicking on the cog. Enter the following details in your emulator to establish the connection.
 
-1. MQTT Broker: mqtt://iot.eclipse.org
-2. MQTT Port: 1883
-3. MQTT Topic: <THE UNIQUE TOPIC NAME YOU SET IN NODE-RED>
+1. MQTT Broker: `mqtt://iot.eclipse.org`
+2. MQTT Port: `1883`
+3. MQTT Topic: `<THE UNIQUE TOPIC NAME YOU SET IN NODE-RED>`
 
 Then click "Save Settings". Now, if you head back to Node-RED and click one of the inject nodes in your flow, your GlowOrb Emulator should change to that color!
 
