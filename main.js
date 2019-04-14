@@ -154,7 +154,6 @@ function createWindow () {
 		hasShadow : false
 	});
 
-
 	mainWindow.loadFile('index.html');
 
 	// mainWindow.toggleDevTools();

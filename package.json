@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build-mac" : "iconutil -c icns \"app.iconset\" && electron-packager . \"GlowOrb Emulator\" --overwrite --platform=darwin --arch=x64 --icon=app.icns --prune=true --out=release-builds && rm app.icns"
+    "build-mac" : "iconutil -c icns \"app.iconset\" && electron-packager . \"GlowOrb Emulator\" --overwrite --platform=darwin --arch=x64 --icon=app.icns --prune=true --out=release-builds --darwinDarkModeSupport=true && rm app.icns"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
