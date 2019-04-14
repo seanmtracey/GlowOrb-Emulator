@@ -1,4 +1,4 @@
-# GlowOrb Emualtor
+# GlowOrb Emulator
 An Electron app for emulating [Andy Stanford-Clark's](http://stanford-clark.com/) [GlowOrb](https://designsparkmarketplace.com/en/listings/617-gloworb).
 
 ![App Preview](docs/gloworb.gif "GlowOrb Emulator Gif")
