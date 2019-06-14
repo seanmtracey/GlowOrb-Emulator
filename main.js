@@ -1,4 +1,4 @@
-
+// Single comment!
 const Electron = require('electron');
 const mqtt = require('mqtt');
 const validHexColor = require('valid-hex-color');
