@@ -35,7 +35,7 @@ body[data-settingsshowing="true"] #gloworb{
 }
 
 body[data-settingsshowing="true"] #settingsBtn{
-    display: none;
+    transform: translateY(110%);
 }
 
 body[data-connecting="true"] #display{
@@ -62,11 +62,11 @@ body[data-connecting="false"] #connectionStatus{
     justify-content: center;
     width: 100%;
     height: 75vh;
-    background-image: url('assets/box.png');
+    background-image: url(assets/box.png);
     background-size: 90%;
     background-position: 50% 100%;
     background-repeat: no-repeat;
-    padding-top: 1.5em;
+    padding-top: 3vh;
     -webkit-app-region: drag;
     cursor: move;
 }
@@ -77,8 +77,6 @@ body[data-connecting="false"] #connectionStatus{
     border: 1px solid rgba(0, 0, 0, 0.35);
     background-color: #b7b7b7;
     border-radius: 100%;
-    margin-top: 2vh;
-    /* box-shadow: 0 0 50px white; */
 }
 
 #gloworb #orb #crescent{
@@ -119,28 +117,23 @@ body[data-connecting="false"] #connectionStatus{
 }
 
 #settingsBtn{
-    position: fixed;
     bottom: 1px;
     right: 1px;
-    width: 1.5em;
-    height: 1.5em;
+    width: auto;
     background: white;
-    border-radius: 100%;
-    background-image: url('assets/settings.png');
-    background-size: 69%;
     background-position: 50%;
     background-repeat: no-repeat;
     border: 1px solid #d0d0d0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     display: block;
-}
-
-#settingsBtn:hover{
-    animation: spinAnimation 3s infinite linear;
-	-moz-animation: spinAnimation 3s infinite linear;
-	-webkit-animation: spinAnimation 3s infinite linear;
-	-o-animation: spinAnimation 3s infinite linear;
+    padding: 0.1em 0.3em;
+    margin-top: 0.5em;
+    border-radius: 3px;
+    font-family: sans-serif;
+    font-size: 0.8em;
+    color: #1185dc;
+    transition: transform 0.3s linear;
 }
 
 #settingsPanel{
@@ -231,24 +224,4 @@ body[data-connecting="false"] #connectionStatus{
     background: rgba(0, 0, 0, 0.63);
     border-radius: 10px;
     padding: 0.5em 1em;
-}
-
-@keyframes spinAnimation{
-	0% {transform: rotateZ(0deg);}
-	100% {transform: rotateZ(360deg);}
-}
-
-@-moz-keyframes spinAnimation{
-	0% {-moz-transform: rotateZ(0deg);}
-	100% {-moz-transform: rotateZ(360deg);}
-}
-	
-@-webkit-keyframes spinAnimation{
-	0% {-webkit-transform: rotateZ(0deg);}
-	100% {-webkit-transform: rotateZ(360deg);}
-}
-	
-@-o-keyframes spinAnimation{
-	0% {-o-transform: rotateZ(0deg);}
-	100% {-o-transform: rotateZ(360deg);}
 }
