@@ -1,4 +1,4 @@
-
+require('dotenv').config( { silent : process.env.GLOWORB_EMULATOR_DEVELOPMENT === "true"} );
 const Electron = require('electron');
 const mqtt = require('mqtt');
 const validHexColor = require('valid-hex-color');
@@ -143,7 +143,7 @@ function createWindow () {
 
 	mainWindow = new BrowserWindow({
 		width: 350,
-		height: 430,
+		height: 450,
 		webPreferences: {
 			nodeIntegration: true
 		},
@@ -156,7 +156,10 @@ function createWindow () {
 
 	mainWindow.loadFile('index.html');
 
-	// mainWindow.toggleDevTools();
+	if(process.env.GLOWORB_EMULATOR_DEVELOPMENT === "true"){
+		mainWindow.toggleDevTools();
+	}
+
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();
