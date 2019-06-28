@@ -134,6 +134,7 @@ body[data-connecting="false"] #connectionStatus{
     font-size: 0.8em;
     color: #1185dc;
     transition: transform 0.3s linear;
+    z-index: 2;
 }
 
 #settingsPanel{
