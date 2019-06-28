@@ -156,6 +156,13 @@
 
     });
 
+    document.body.addEventListener('keydown', function(e){
+        if(e.keyCode === 27 && document.body.dataset.settingsshowing === "true"){
+            document.body.dataset.settingsshowing = "false";
+            brokerSettings.setFromSaved();
+        }
+    }, false);
+
     setTimeout(function(){
         document.body.dataset.ready = "true";
     }, 50);
