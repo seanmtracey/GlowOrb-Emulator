@@ -1,7 +1,3 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
-
 (function(){
 
     'use strict';
@@ -12,6 +8,9 @@
     const settingsButton = document.querySelector('#settingsBtn');
     const settingsPanel = document.querySelector('#settingsPanel');
     const settingsForm = settingsPanel.querySelector('form');
+
+    const saveSettingsBtn = settingsForm.querySelector('input[type="button"][data-type="save"]');
+    const cancelSettingsBtn = settingsForm.querySelector('input[type="button"][data-type="cancel"]');
     
     const GlowOrb = document.querySelector('#gloworb');
     const Orb = GlowOrb.querySelector('#orb');
@@ -70,9 +69,23 @@
 
         }
 
+        function showTheMostRecentSavedSettingsInForm(){
+
+            const lastSavedData = getStoredSettingsForBroker();
+
+            settingsForm[0].value = lastSavedData.broker || "";
+            settingsForm[1].value = lastSavedData.port || "";
+            settingsForm[2].value = lastSavedData.topic || "";
+            settingsForm[3].value = lastSavedData.username || "";
+            settingsForm[4].value = lastSavedData.password || "";
+            settingsForm[5].value = lastSavedData.clientId || "";
+
+        }
+
         return {
             get : getStoredSettingsForBroker,
             set : saveSettingsForBroker,
+            setFromSaved : showTheMostRecentSavedSettingsInForm,
             send : sendBrokerSettingsToMainProcess
         };
 
@@ -86,19 +99,29 @@
         
         e.preventDefault();
         e.stopImmediatePropagation();
-        
+
+    }, false);
+
+    saveSettingsBtn.addEventListener('click', function(){
+
         brokerSettings.set({
-            broker : this[0].value,
-            port : this[1].value || 1883,
-            topic : this[2].value,
-            username : this[3].value,
-            password : this[4].value,
-            clientId : this[5].value
+            broker : settingsForm[0].value,
+            port : settingsForm[1].value || 1883,
+            topic : settingsForm[2].value,
+            username : settingsForm[3].value,
+            password : settingsForm[4].value,
+            clientId : settingsForm[5].value
         });
 
         brokerSettings.send();
+
         document.body.dataset.settingsshowing = "false";
 
+    }, false);
+
+    cancelSettingsBtn.addEventListener('click', function(){
+        document.body.dataset.settingsshowing = "false";
+        brokerSettings.setFromSaved();
     }, false);
 
     ipcRenderer.on('message' , function(event, message){ 
@@ -129,14 +152,16 @@
 
             }
 
-            /*if(message.status === "error"){
-                document.body.dataset.connecting = "true";
-
-            }*/
-
         }
 
     });
+
+    document.body.addEventListener('keydown', function(e){
+        if(e.keyCode === 27 && document.body.dataset.settingsshowing === "true"){
+            document.body.dataset.settingsshowing = "false";
+            brokerSettings.setFromSaved();
+        }
+    }, false);
 
     setTimeout(function(){
         document.body.dataset.ready = "true";
@@ -150,12 +175,6 @@
         document.body.dataset.settingsshowing = "true";
     }
 
-    settingsForm[0].value = storedData.broker || "";
-    settingsForm[1].value = storedData.port || "";
-    settingsForm[2].value = storedData.topic || "";
-    settingsForm[3].value = storedData.username || "";
-    settingsForm[4].value = storedData.password || "";
-    settingsForm[5].value = storedData.clientId || "";
-
+    brokerSettings.setFromSaved();
 
 }());
