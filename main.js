@@ -33,6 +33,18 @@ ipcMain.on('brokerSettings', (evt, message) => {
 			brokerDisconnect = Promise.resolve();
 		}
 
+		if(data.username === ""){
+			delete data.username;
+		}
+
+		if(data.password === ""){
+			delete data.password;
+		}
+
+		if(data.clientId === ""){
+			delete data.clientId;
+		}
+
 		brokerDisconnect
 			.then(function(){
 
